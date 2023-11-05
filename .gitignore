@@ -1,5 +1,4 @@
 .idea/
 venv/
 **/__pycache__/
-build/
-dist/
+user_data.txt

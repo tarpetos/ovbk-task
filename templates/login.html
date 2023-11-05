@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Login</title>
+</head>
+<body>
+    <h1 style="display: flex; justify-content: center">Login</h1>
+    {% if message %}
+    <script>
+        alert("{{ message }}");
+    </script>
+    {% endif %}
+    <form action="/chat" method="post" style="display: flex; flex-direction: column; margin: 0 auto; width: 60%">
+        <label for="username">Username:</label>
+        <input type="text" id="username" name="username" required style="margin-bottom: 1%;">
+        <label for="password">Password:</label>
+        <input type="password" id="password" name="password" required style="margin-bottom: 1%;">
+        <button type="submit" style="margin-bottom: 1%;">Login</button>
+    </form>
+    <a href="/register" style="display: flex; justify-content: center">Register</a>
+</body>
+</html>
+

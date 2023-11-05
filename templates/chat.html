@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Chat</title>
+</head>
+<body data-username="{{ username }}">
+    <h1>Chat</h1>
+    <p>Welcome, {{ username }}!</p>
+    <ul id="chat-messages">
+        {% for chat in chat_data %}
+            <li><strong>{{ chat.username }}:</strong> {{ chat.message }}</li>
+        {% endfor %}
+    </ul>
+    <form id="message-form">
+        <label for="message">Write a message:</label>
+        <input type="text" id="message" name="message" required>
+        <button type="submit">Send Message</button>
+    </form>
+    <script src="/static/chatUpdate.js"></script>
+</body>
+</html>

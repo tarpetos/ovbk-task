@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Register</title>
+</head>
+<body>
+    <h1 style="display: flex; margin: 0 auto; justify-content: center">Register</h1>
+    <form action="/register" method="post" style="display: flex; flex-direction: column; margin: 0 auto; width: 60%">
+        <label for="username">Username:</label>
+        <input type="text" id="username" name="username" required style="margin-bottom: 1%;">
+        <label for="password">Password:</label>
+        <input type="password" id="password" name="password" required style="margin-bottom: 1%;">
+        <label for="email">Email:</label>
+        <input type="email" id="email" name="email" required style="margin-bottom: 1%;">
+        <label for="phone">Phone Number:</label>
+        <input type="text" id="phone" name="phone" required style="margin-bottom: 1%;">
+        <button type="button" onclick="insertFakeData()" style="margin-bottom: 1%;">Fake Data</button>
+        <button type="submit" style="margin-bottom: 1%;">Register</button>
+        <label for="number_of_accounts">Number of Accounts (1 or more):</label>
+        <input type="number" id="number_of_accounts" name="number_of_accounts" required min="1" value="1">
+    </form>
+
+    <script src="/static/fakeDataInserter.js"></script>
+</body>
+</html>
