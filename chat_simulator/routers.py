@@ -2,8 +2,8 @@ from typing import Dict, Union
 from fastapi import Request, Form
 from starlette.responses import RedirectResponse, HTMLResponse
 from starlette.websockets import WebSocket, WebSocketDisconnect
-from .config import router, templates, chat_data, active_connections, user_data_file
-from .utils import find_user, generate_fake_data
+from .config import router, templates, chat_data, active_connections
+from .utils import find_user, generate_fake_data, write_to_txt
 
 
 @router.get("/")
@@ -37,15 +37,23 @@ async def register(request: Request) -> templates.TemplateResponse:
 async def register_user(
         username: str = Form(...),
         password: str = Form(...),
+        first_name: str = Form(...),
+        last_name: str = Form(...),
+        address: str = Form(...),
         email: str = Form(...),
         phone: str = Form(...),
         number_of_accounts: int = Form(...),
 ) -> Union[RedirectResponse, HTMLResponse]:
     if number_of_accounts == 1:
-        with open(user_data_file, "a") as file:
-            file.write(
-                f"username: {username}, password: {password}, email: {email}, phone: {phone}\n"
-            )
+        write_to_txt({
+            "username": username,
+            "password": password,
+            "first_name": first_name,
+            "last_name": last_name,
+            "address": address,
+            "email": email,
+            "phone": phone,
+        })
         redirect_url = f"/chat?username={username}"
         return RedirectResponse(url=redirect_url)
     else:
@@ -53,13 +61,7 @@ async def register_user(
 
         for _ in range(number_of_accounts):
             fake_data = generate_fake_data()
-            with open(user_data_file, "a") as file:
-                file.write(
-                    f"username: {fake_data['username']}, "
-                    f"password: {fake_data['password']}, "
-                    f"email: {fake_data['email']}, "
-                    f"phone: {fake_data['phone']}\n"
-                )
+            write_to_txt(fake_data)
             registered_users.append(fake_data["username"])
         popup_message = (
             f"Registered {number_of_accounts} users: {', '.join(registered_users)}"
@@ -75,7 +77,8 @@ async def register_user(
 
 @router.get("/insert_fake_data")
 async def insert_fake_data() -> Dict[str, str]:
-    return generate_fake_data()
+    fake_data = generate_fake_data()
+    return fake_data
 
 
 @router.websocket("/ws/{username}")
