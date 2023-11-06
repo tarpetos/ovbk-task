@@ -30,6 +30,7 @@ def generate_fake_data() -> Dict[str, str]:
     fake_first_name = fake.first_name()
     fake_last_name = fake.last_name()
     fake_address = fake.address()
+    fake_address = fake_address.replace("\n", " ")
     fake_email = fake.email()
     fake_phone = fake.phone_number()
     fake_phone = fake_phone.split('x')[0]
